@@ -11,20 +11,6 @@ public:
 	void Render(float dt) override; 
 };
 
-//Commandline Arguments 
-int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd)
-{
-	TestApp tApp(hInstance);
-
-	if (!tApp.Init())
-	{
-		return 1;
-	}
-
-	return tApp.Run();
-
-}
-
 TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance)
 {
 
@@ -50,4 +36,20 @@ void TestApp::Update(float dt)
 
 void TestApp::Render(float dt)
 {
+	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, DirectX::Colors::CornflowerBlue);
+	m_pSwapChain->Present(0, 0); 
+}
+
+//Commandline Arguments 
+int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd)
+{
+	TestApp tApp(hInstance);
+
+	if (!tApp.Init())
+	{
+		return 1;
+	}
+
+	return tApp.Run();
+
 }
