@@ -11,14 +11,9 @@ public:
 	void Render(float dt) override; 
 };
 
-TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance)
-{
+TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance){}
 
-}
-
-TestApp::~TestApp()
-{
-}
+TestApp::~TestApp(){}
 
 bool TestApp::Init()
 {
@@ -30,9 +25,7 @@ bool TestApp::Init()
 	return true;
 }
 
-void TestApp::Update(float dt)
-{
-}
+void TestApp::Update(float dt){}
 
 void TestApp::Render(float dt)
 {

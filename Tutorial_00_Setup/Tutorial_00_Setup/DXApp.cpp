@@ -5,12 +5,27 @@ namespace
 	DXApp* g_App = nullptr;
 }
 
+//Message CallBack
+//Callback on the top otherwise has warning undeclared
 LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	if (g_App) return g_App->MsgProc(hwnd, msg, wParam, lParam);
 	else return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
+LRESULT DXApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	switch (msg)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+
+	default:
+		return DefWindowProc(hwnd, msg, wParam, lParam);
+	}
+}
+//Constructor
 DXApp::DXApp(HINSTANCE hInstance)
 {
 	m_hAppInstance = hInstance;
@@ -25,6 +40,37 @@ DXApp::DXApp(HINSTANCE hInstance)
 	m_pImmediateContext = nullptr;
 	m_pRenderTargetView = nullptr;
 	m_pSwapChain = nullptr;
+}
+
+//Destructor
+DXApp::~DXApp()
+{
+	//Clean up
+	if (m_pImmediateContext)
+	{
+		m_pImmediateContext->ClearState();
+	}
+
+	Memory::SafeRelease(m_pRenderTargetView);
+	Memory::SafeRelease(m_pSwapChain);
+	Memory::SafeRelease(m_pImmediateContext);
+	Memory::SafeRelease(m_pDevice);
+}
+
+//Init Window and Direct3D
+bool DXApp::Init()
+{
+	if (!InitWindow())
+	{
+		return false;
+	}
+
+	if (!InitDirect3D())
+	{
+		return false;
+	}
+
+	return true;
 }
 
 bool DXApp::InitWindow()
@@ -156,20 +202,7 @@ bool DXApp::InitDirect3D()
 	return true;
 }
 
-DXApp::~DXApp()
-{
-	//Clean up
-	if (m_pImmediateContext)
-	{
-		m_pImmediateContext->ClearState();
-	}
-
-	Memory::SafeRelease(m_pRenderTargetView);
-	Memory::SafeRelease(m_pSwapChain);
-	Memory::SafeRelease(m_pImmediateContext);
-	Memory::SafeRelease(m_pDevice);
-}
-
+//Run is a loop and get the quit meesage WM_QUIT
 int DXApp::Run()
 {
 	//Main Message Loop
@@ -191,32 +224,4 @@ int DXApp::Run()
 	}
 
 	return static_cast<int>(msg.wParam);
-}
-
-bool DXApp::Init()
-{
-	if (!InitWindow())
-	{
-		return false;
-	}
-
-	if (!InitDirect3D())
-	{
-		return false;
-	}
-
-	return true;
-}
-
-LRESULT DXApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	switch (msg)
-	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		return 0;
-
-	default:
-		return DefWindowProc(hwnd, msg, wParam, lParam);
-	}
 }
