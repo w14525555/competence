@@ -17,6 +17,7 @@ public:
 
 private:
 	//Create object
+	//Auto delete themself
 	std::unique_ptr<DirectX::SpriteBatch> spriteBatch;
 	std::unique_ptr<DirectX::SpriteFont> spriteFont;
 
@@ -26,7 +27,10 @@ private:
 
 TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance){}
 
-TestApp::~TestApp(){}
+TestApp::~TestApp()
+{
+	Memory::SafeRelease(m_pTexture);
+}
 
 bool TestApp::Init()
 {
