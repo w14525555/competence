@@ -52,3 +52,8 @@ namespace Memory
 	}
 
 }
+
+namespace Utility
+{
+	void GetTextureDim(ID3D11Resource* res, UINT* width, UINT* height);
+}

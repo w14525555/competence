@@ -4,6 +4,7 @@
 #include "DDSTextureLoader.h"
 #include "SimpleMath.h"
 #include "SpriteFont.h"
+#include "Sprite.h"
 
 class TestApp : public DXApp
 {
@@ -17,19 +18,19 @@ public:
 
 private:
 	//Create object
-	//Auto delete themself
+	//Auto delete them self
 	std::unique_ptr<DirectX::SpriteBatch> spriteBatch;
 	std::unique_ptr<DirectX::SpriteFont> spriteFont;
 
-	ID3D11ShaderResourceView* m_pTexture;
-	
+	Sprite* sprite;
+
 };
 
 TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance){}
 
 TestApp::~TestApp()
 {
-	Memory::SafeRelease(m_pTexture);
+	Memory::SafeDelete(sprite);
 }
 
 bool TestApp::Init()
@@ -43,9 +44,9 @@ bool TestApp::Init()
 	spriteBatch.reset(new DirectX::SpriteBatch(m_pImmediateContext));
 
 	spriteFont.reset(new DirectX::SpriteFont(m_pDevice, L"Arial.spritefont"));
-	//Import Texture For Rendering
-	HR(DirectX::CreateDDSTextureFromFile(m_pDevice, L"Test.dds", nullptr, &m_pTexture));
 
+	sprite = new Sprite(DirectX::SimpleMath::Vector2(100, 100));
+	sprite->Load(m_pDevice, L"Test.dds");
 	return true;
 }
 
@@ -56,17 +57,17 @@ void TestApp::Render(float dt)
 	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, DirectX::Colors::CornflowerBlue);
 
 	spriteBatch->Begin();
-	//Draw Sprites
-	spriteBatch->Draw(m_pTexture, DirectX::SimpleMath::Vector2(100, 100));
 
 	spriteFont->DrawString(spriteBatch.get(), L"Hello World", DirectX::SimpleMath::Vector2(300, 300));
 
-	spriteBatch->End();
+	sprite->Draw(spriteBatch.get());
+
+	spriteBatch->End(); 
 
 	HR(m_pSwapChain->Present(0, 0)); 
 }
 
-//Commandline Arguments 
+//Command line Arguments 
 int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd)
 {
 	TestApp tApp(hInstance);
