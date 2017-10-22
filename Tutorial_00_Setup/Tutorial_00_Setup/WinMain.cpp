@@ -5,6 +5,7 @@
 #include "SimpleMath.h"
 #include "SpriteFont.h"
 #include "Sprite.h"
+#include "Tank.h"
 
 class TestApp : public DXApp
 {
@@ -22,15 +23,14 @@ private:
 	std::unique_ptr<DirectX::SpriteBatch> spriteBatch;
 	std::unique_ptr<DirectX::SpriteFont> spriteFont;
 
-	Sprite* sprite;
-
+	Tank* tank;
 };
 
 TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance){}
 
 TestApp::~TestApp()
 {
-	Memory::SafeDelete(sprite);
+	Memory::SafeDelete(tank);
 }
 
 bool TestApp::Init()
@@ -45,32 +45,33 @@ bool TestApp::Init()
 
 	spriteFont.reset(new DirectX::SpriteFont(m_pDevice, L"Arial.spritefont"));
 
-	sprite = new Sprite(DirectX::SimpleMath::Vector2(100, 100));
-	sprite->Load(m_pDevice, L"Test.dds");
+	tank = new Tank(DirectX::SimpleMath::Vector2(100, 100), m_pDevice, L"Test.dds");
 	return true;
 }
 
 void TestApp::Update(float dt)
 {
 	const float MOVE_SPEED = 0.1f;
+
+	//Move the tank
 	if (GetAsyncKeyState('W'))
 	{
-		sprite->SetPosition(DirectX::SimpleMath::Vector2(sprite->GetPosition().x, sprite->GetPosition().y - MOVE_SPEED));
+		tank->MoveUp();
 	}
 
 	if (GetAsyncKeyState('S'))
 	{
-		sprite->SetPosition(DirectX::SimpleMath::Vector2(sprite->GetPosition().x, sprite->GetPosition().y + MOVE_SPEED));
+		tank->MoveDown();
 	}
 
 	if (GetAsyncKeyState('A'))
 	{
-		sprite->SetPosition(DirectX::SimpleMath::Vector2(sprite->GetPosition().x - MOVE_SPEED, sprite->GetPosition().y));
+		tank->MoveLeft();
 	}
 
 	if (GetAsyncKeyState('D'))
 	{
-		sprite->SetPosition(DirectX::SimpleMath::Vector2(sprite->GetPosition().x + MOVE_SPEED, sprite->GetPosition().y));
+		tank->MoveRight();
 	}
 }
 
@@ -82,7 +83,7 @@ void TestApp::Render(float dt)
 
 	spriteFont->DrawString(spriteBatch.get(), L"Hello World", DirectX::SimpleMath::Vector2(300, 300));
 
-	sprite->Draw(spriteBatch.get());
+	tank->Draw(spriteBatch.get());
 
 	spriteBatch->End(); 
 

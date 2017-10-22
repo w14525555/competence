@@ -4,7 +4,7 @@
 class Sprite: public IElement2D
 {
 public:
-	Sprite(void);
+	Sprite();
 	Sprite(const Vector2& position);
 	~Sprite(void);
 
@@ -15,6 +15,8 @@ public:
 	virtual const Color& GetColor() const;
 	virtual const float& GetAlpha() const;
 	virtual const float& GetRotation() const;
+	virtual const UINT& GetWidth() const;
+	virtual const UINT& GetHeight() const;
 
 	//Setters
 	virtual void SetPosition(const Vector2& position);

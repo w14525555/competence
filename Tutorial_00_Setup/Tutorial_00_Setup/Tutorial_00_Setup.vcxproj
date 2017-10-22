@@ -115,6 +115,7 @@
     <ClCompile Include="DXERR\dxerr.cpp" />
     <ClCompile Include="DXUtil.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Tank.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +124,7 @@
     <ClInclude Include="DXUtil.h" />
     <ClInclude Include="IElement2D.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Tank.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

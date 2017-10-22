@@ -63,6 +63,16 @@ const float& Sprite::GetRotation() const
 	return m_Rotation;
 }
 
+const UINT& Sprite::GetWidth() const
+{
+	return m_Width;
+}
+
+const UINT& Sprite::GetHeight() const
+{
+	return m_Height;
+}
+//Setters
 void Sprite::SetPosition(const Vector2& position)
 {
 	m_Position = position;
