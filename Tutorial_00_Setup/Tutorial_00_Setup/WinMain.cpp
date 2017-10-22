@@ -50,7 +50,29 @@ bool TestApp::Init()
 	return true;
 }
 
-void TestApp::Update(float dt){}
+void TestApp::Update(float dt)
+{
+	const float MOVE_SPEED = 0.1f;
+	if (GetAsyncKeyState('W'))
+	{
+		sprite->SetPosition(DirectX::SimpleMath::Vector2(sprite->GetPosition().x, sprite->GetPosition().y - MOVE_SPEED));
+	}
+
+	if (GetAsyncKeyState('S'))
+	{
+		sprite->SetPosition(DirectX::SimpleMath::Vector2(sprite->GetPosition().x, sprite->GetPosition().y + MOVE_SPEED));
+	}
+
+	if (GetAsyncKeyState('A'))
+	{
+		sprite->SetPosition(DirectX::SimpleMath::Vector2(sprite->GetPosition().x - MOVE_SPEED, sprite->GetPosition().y));
+	}
+
+	if (GetAsyncKeyState('D'))
+	{
+		sprite->SetPosition(DirectX::SimpleMath::Vector2(sprite->GetPosition().x + MOVE_SPEED, sprite->GetPosition().y));
+	}
+}
 
 void TestApp::Render(float dt)
 {
