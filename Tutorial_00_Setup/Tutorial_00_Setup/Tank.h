@@ -20,6 +20,8 @@ public:
 private:
 	Sprite* m_Sprite;
 	Sprite* m_LeftSprite;
+	Sprite* m_RightSprite;
+	Sprite* m_DownSprite;
 	Sprite* m_UpSprite;
 
 	ID3D11Device* m_pDevice;
