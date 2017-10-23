@@ -25,6 +25,8 @@ private:
 	Sprite* m_UpSprite;
 
 	ID3D11Device* m_pDevice;
+	enum Direction currentDirection;
+
 	const float MOVE_SPEED = 0.1f;
 	const float UPPER_BOUNDRAY = 0.0f;
 	const float LOWER_BOUNDRAY = 600.0f;

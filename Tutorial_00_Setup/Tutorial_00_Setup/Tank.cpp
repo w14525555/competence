@@ -1,5 +1,7 @@
 #include "Tank.h"
 
+enum Direction { LEFT, RIGHT, UP, DOWN };
+
 Tank::Tank(void)
 {
 }
@@ -25,6 +27,7 @@ Tank::Tank(const Vector2& position, ID3D11Device* pDevice)
 
 	//Default Image is Up
 	m_Sprite = m_UpSprite;
+	currentDirection = UP;
 }
 
 Tank::~Tank(void)
@@ -34,10 +37,15 @@ Tank::~Tank(void)
 
 void Tank::MoveUp() 
 {
-	//Update the position first
-	m_UpSprite->SetPosition(m_Sprite->GetPosition());
-	//Change the new Sprite
-	m_Sprite = m_UpSprite;
+	if(currentDirection != UP)
+	{
+		currentDirection = UP;
+		//Update the position
+		m_UpSprite->SetPosition(m_Sprite->GetPosition());
+		//Change the new Sprite
+		m_Sprite = m_UpSprite;
+	}
+	
 	float newY = m_Sprite->GetPosition().y - MOVE_SPEED;
 	if(newY > UPPER_BOUNDRAY + m_Sprite->GetHeight()/2)
 	{
@@ -49,10 +57,14 @@ void Tank::MoveUp()
 
 void Tank::MoveDown()
 {
-	//Update the position first
-	m_DownSprite->SetPosition(m_Sprite->GetPosition());
-	//Change the new Sprite
-	m_Sprite = m_DownSprite;
+	if (currentDirection != DOWN)
+	{
+		currentDirection = DOWN;
+		//Update the position first
+		m_DownSprite->SetPosition(m_Sprite->GetPosition());
+		//Change the new Sprite
+		m_Sprite = m_DownSprite;
+	}
 
 	float newY = m_Sprite->GetPosition().y + MOVE_SPEED;
 	if (m_Sprite->GetPosition().y + MOVE_SPEED < LOWER_BOUNDRAY - m_Sprite->GetHeight() / 2)
@@ -61,10 +73,14 @@ void Tank::MoveDown()
 
 void Tank::MoveLeft()
 {
-	//Update the position first
-	m_LeftSprite->SetPosition(m_Sprite->GetPosition());
-	//Change the new Sprite
-	m_Sprite = m_LeftSprite;
+	if (currentDirection != LEFT)
+	{
+		currentDirection = LEFT;
+		//Update the position first
+		m_LeftSprite->SetPosition(m_Sprite->GetPosition());
+		//Change the new Sprite
+		m_Sprite = m_LeftSprite;
+	}
 
 	float newX = m_Sprite->GetPosition().x - MOVE_SPEED;
 	if(m_Sprite->GetPosition().x - MOVE_SPEED > LEFT_BOUNDRAY + m_Sprite->GetWidth() / 2)
@@ -73,10 +89,14 @@ void Tank::MoveLeft()
 
 void Tank::MoveRight()
 {
-	//Update the position first
-	m_RightSprite->SetPosition(m_Sprite->GetPosition());
-	//Change the new Sprite
-	m_Sprite = m_RightSprite;
+	if (currentDirection != RIGHT)
+	{
+		currentDirection = RIGHT;
+		//Update the position first
+		m_RightSprite->SetPosition(m_Sprite->GetPosition());
+		//Change the new Sprite
+		m_Sprite = m_RightSprite;
+	}
 
 	float newX = m_Sprite->GetPosition().x + MOVE_SPEED;
 	if(m_Sprite->GetPosition().x + MOVE_SPEED < RIGHT_BOUNDRAY - m_Sprite->GetWidth() / 2)
@@ -87,5 +107,7 @@ void Tank::Draw(DirectX::SpriteBatch* spriteBatch)
 {
 	m_Sprite->Draw(spriteBatch);
 }
+
+
 
 
