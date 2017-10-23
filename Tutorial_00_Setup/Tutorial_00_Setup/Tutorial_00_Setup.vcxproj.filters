@@ -56,5 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Arial.spritefont" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Bullet.dds" />
   </ItemGroup>
 </Project>

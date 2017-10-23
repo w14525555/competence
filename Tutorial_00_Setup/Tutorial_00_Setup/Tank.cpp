@@ -4,10 +4,19 @@ Tank::Tank(void)
 {
 }
 
-Tank::Tank(const Vector2& position, ID3D11Device* pDevice, const wchar_t* pFile)
+Tank::Tank(const Vector2& position, ID3D11Device* pDevice)
 {
-	m_Sprite = new Sprite(position);
-	m_Sprite->Load(pDevice, pFile);
+	m_pDevice = pDevice;
+	//Load Sprite For Up
+	m_UpSprite = new Sprite(position);
+	m_UpSprite->Load(pDevice, L"TankUp.dds");
+
+	//Load Sprite For Left
+	m_LeftSprite = new Sprite(position);
+	m_LeftSprite->Load(pDevice, L"TankLeft.dds");
+
+	//Default Image is Up
+	m_Sprite = m_UpSprite;
 }
 
 Tank::~Tank(void)
@@ -17,9 +26,17 @@ Tank::~Tank(void)
 
 void Tank::MoveUp() 
 {
+	//Update the position first
+	m_UpSprite->SetPosition(m_Sprite->GetPosition());
+	//Change the new Direction
+	m_Sprite = m_UpSprite;
 	float newY = m_Sprite->GetPosition().y - MOVE_SPEED;
 	if(newY > UPPER_BOUNDRAY + m_Sprite->GetHeight()/2)
+	{
+		
 		m_Sprite->SetPosition(DirectX::SimpleMath::Vector2(m_Sprite->GetPosition().x, newY));
+	}
+		
 }
 
 void Tank::MoveDown()
@@ -31,6 +48,11 @@ void Tank::MoveDown()
 
 void Tank::MoveLeft()
 {
+	//Update the position first
+	m_LeftSprite->SetPosition(m_Sprite->GetPosition());
+	//Change the new Direction
+	m_Sprite = m_LeftSprite;
+
 	float newX = m_Sprite->GetPosition().x - MOVE_SPEED;
 	if(m_Sprite->GetPosition().x - MOVE_SPEED > LEFT_BOUNDRAY + m_Sprite->GetWidth() / 2)
 		m_Sprite->SetPosition(DirectX::SimpleMath::Vector2(newX, m_Sprite->GetPosition().y));

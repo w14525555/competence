@@ -24,6 +24,7 @@ private:
 	std::unique_ptr<DirectX::SpriteFont> spriteFont;
 
 	Tank* tank;
+	Sprite* sprite;
 };
 
 TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance){}
@@ -31,6 +32,7 @@ TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance){}
 TestApp::~TestApp()
 {
 	Memory::SafeDelete(tank);
+	Memory::SafeDelete(sprite);
 }
 
 bool TestApp::Init()
@@ -45,7 +47,10 @@ bool TestApp::Init()
 
 	spriteFont.reset(new DirectX::SpriteFont(m_pDevice, L"Arial.spritefont"));
 
-	tank = new Tank(DirectX::SimpleMath::Vector2(100, 100), m_pDevice, L"Test.dds");
+	tank = new Tank(DirectX::SimpleMath::Vector2(100, 100), m_pDevice);
+	sprite = new Sprite(DirectX::SimpleMath::Vector2(200, 100));
+	sprite->Load(m_pDevice, L"TankRight.dds");
+
 	return true;
 }
 
@@ -84,6 +89,8 @@ void TestApp::Render(float dt)
 	spriteFont->DrawString(spriteBatch.get(), L"Hello World", DirectX::SimpleMath::Vector2(300, 300));
 
 	tank->Draw(spriteBatch.get());
+
+	sprite->Draw(spriteBatch.get());
 
 	spriteBatch->End(); 
 
