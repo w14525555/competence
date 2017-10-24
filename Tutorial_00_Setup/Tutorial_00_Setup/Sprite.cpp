@@ -72,6 +72,11 @@ const UINT& Sprite::GetHeight() const
 {
 	return m_Height;
 }
+
+const RECT& Sprite::GetRectangle() const
+{
+	return m_SourceRect;
+}
 //Setters
 void Sprite::SetPosition(const Vector2& position)
 {

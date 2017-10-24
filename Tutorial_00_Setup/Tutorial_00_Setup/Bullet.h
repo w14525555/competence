@@ -26,7 +26,7 @@ private:
 	Sprite* bulletSprite;
 	enum Direction m_Direction;
 	bool isActive;
-	const float BULLET_SPEED = 0.1f;
+	const float BULLET_SPEED = 0.5f;
 	const float UPPER_BOUNDRAY = 0.0f;
 	const float LOWER_BOUNDRAY = 600.0f;
 	const float LEFT_BOUNDRAY = 0.0f;

@@ -25,6 +25,8 @@ private:
 
 	Tank* tank;
 	Sprite* sprite;
+
+	void HandleInput();
 };
 
 TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance){}
@@ -56,27 +58,30 @@ bool TestApp::Init()
 
 void TestApp::Update(float dt)
 {
-	const float MOVE_SPEED = 0.1f;
+	HandleInput();
+}
 
+void TestApp::HandleInput()
+{
 	if (tank)
 	{
 		//Move the tank
-		if (GetAsyncKeyState('W'))
+		if (GetAsyncKeyState(VK_UP))
 		{
 			tank->MoveUp();
 		}
 
-		if (GetAsyncKeyState('S'))
+		if (GetAsyncKeyState(VK_DOWN))
 		{
 			tank->MoveDown();
 		}
 
-		if (GetAsyncKeyState('A'))
+		if (GetAsyncKeyState(VK_LEFT))
 		{
 			tank->MoveLeft();
 		}
 
-		if (GetAsyncKeyState('D'))
+		if (GetAsyncKeyState(VK_RIGHT))
 		{
 			tank->MoveRight();
 		}

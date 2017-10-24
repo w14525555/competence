@@ -17,6 +17,7 @@ public:
 	virtual const float& GetRotation() const;
 	virtual const UINT& GetWidth() const;
 	virtual const UINT& GetHeight() const;
+	virtual const RECT& GetRectangle() const;
 
 	//Setters
 	virtual void SetPosition(const Vector2& position);
