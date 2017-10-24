@@ -1,6 +1,5 @@
 #include "Tank.h"
-
-enum Direction { LEFT, RIGHT, UP, DOWN };
+using namespace Directions;
 
 Tank::Tank(void)
 {
@@ -9,6 +8,18 @@ Tank::Tank(void)
 Tank::Tank(const Vector2& position, ID3D11Device* pDevice)
 {
 	m_pDevice = pDevice;
+	LoadSprites(position, pDevice);
+	
+	//Default Image is Up
+	m_Sprite = m_UpSprite;
+	currentDirection = UP;
+
+	//Load Bullet
+	m_Bullet = new Bullet(position, pDevice, currentDirection);
+}
+
+void Tank::LoadSprites(const Vector2& position, ID3D11Device* pDevice)
+{
 	//Load Sprite For Up
 	m_UpSprite = new Sprite(position);
 	m_UpSprite->Load(pDevice, L"TankUp.dds");
@@ -25,14 +36,48 @@ Tank::Tank(const Vector2& position, ID3D11Device* pDevice)
 	m_DownSprite = new Sprite(position);
 	m_DownSprite->Load(pDevice, L"TankDown.dds");
 
-	//Default Image is Up
-	m_Sprite = m_UpSprite;
-	currentDirection = UP;
 }
 
 Tank::~Tank(void)
 {
 	Memory::SafeDelete(m_Sprite);
+}
+
+void Tank::Shoot()
+{
+	//Don't create bullet
+	//Just make it active and set the position and direction
+	if (!m_Bullet->IsActive())
+	{
+		m_Bullet->SetDirection(currentDirection);
+		SetBulletInitialPosition();
+		m_Bullet->SetActive(true);
+	}
+
+}
+
+void Tank::Draw(DirectX::SpriteBatch* spriteBatch)
+{
+	m_Sprite->Draw(spriteBatch);
+
+	//Draw the bullet
+	if (m_Bullet->IsActive())
+	{
+		m_Bullet->Draw(spriteBatch);
+	}
+}
+
+void Tank::UpdateBulletPosition()
+{
+	if (m_Bullet->IsActive())
+	{
+		m_Bullet->UpdateBulletPosition();
+	}
+}
+
+void Tank::SetBulletInitialPosition()
+{
+	m_Bullet->SetPosition(m_Sprite->GetPosition());
 }
 
 void Tank::MoveUp() 
@@ -101,11 +146,6 @@ void Tank::MoveRight()
 	float newX = m_Sprite->GetPosition().x + MOVE_SPEED;
 	if(m_Sprite->GetPosition().x + MOVE_SPEED < RIGHT_BOUNDRAY - m_Sprite->GetWidth() / 2)
 		m_Sprite->SetPosition(DirectX::SimpleMath::Vector2(newX, m_Sprite->GetPosition().y));
-}
-
-void Tank::Draw(DirectX::SpriteBatch* spriteBatch)
-{
-	m_Sprite->Draw(spriteBatch);
 }
 
 

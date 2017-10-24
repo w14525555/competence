@@ -78,6 +78,13 @@ void TestApp::Update(float dt)
 	{
 		tank->MoveRight();
 	}
+
+	if (GetAsyncKeyState('X'))
+	{
+		tank->Shoot();
+	}
+
+	tank->UpdateBulletPosition();
 }
 
 void TestApp::Render(float dt)
