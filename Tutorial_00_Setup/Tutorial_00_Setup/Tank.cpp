@@ -7,7 +7,6 @@ Tank::Tank(void)
 
 Tank::Tank(const Vector2& position, ID3D11Device* pDevice)
 {
-	m_pDevice = pDevice;
 	LoadSprites(position, pDevice);
 	
 	//Default Image is Up
@@ -40,7 +39,12 @@ void Tank::LoadSprites(const Vector2& position, ID3D11Device* pDevice)
 
 Tank::~Tank(void)
 {
-	Memory::SafeDelete(m_Sprite);
+	Memory::SafeDelete(m_LeftSprite);
+	Memory::SafeDelete(m_RightSprite);
+	Memory::SafeDelete(m_DownSprite);
+	Memory::SafeDelete(m_UpSprite);
+
+	Memory::SafeDelete(m_Bullet);
 }
 
 void Tank::Shoot()

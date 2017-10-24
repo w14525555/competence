@@ -27,7 +27,6 @@ private:
 	Sprite* m_DownSprite;
 	Sprite* m_UpSprite;
 	Bullet* m_Bullet;
-	ID3D11Device* m_pDevice;
 
 	enum Directions::Direction currentDirection;
 	const float MOVE_SPEED = 0.1f;

@@ -7,6 +7,7 @@ Bullet::Bullet()
 
 Bullet::~Bullet()
 {
+	Memory::SafeDelete(bulletSprite);
 }
 
 Bullet::Bullet(const DirectX::SimpleMath::Vector2& position, ID3D11Device* pDevice, const enum Direction bulletDirection)

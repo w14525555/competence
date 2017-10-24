@@ -58,33 +58,36 @@ void TestApp::Update(float dt)
 {
 	const float MOVE_SPEED = 0.1f;
 
-	//Move the tank
-	if (GetAsyncKeyState('W'))
+	if (tank)
 	{
-		tank->MoveUp();
-	}
+		//Move the tank
+		if (GetAsyncKeyState('W'))
+		{
+			tank->MoveUp();
+		}
 
-	if (GetAsyncKeyState('S'))
-	{
-		tank->MoveDown();
-	}
+		if (GetAsyncKeyState('S'))
+		{
+			tank->MoveDown();
+		}
 
-	if (GetAsyncKeyState('A'))
-	{
-		tank->MoveLeft();
-	}
+		if (GetAsyncKeyState('A'))
+		{
+			tank->MoveLeft();
+		}
 
-	if (GetAsyncKeyState('D'))
-	{
-		tank->MoveRight();
-	}
+		if (GetAsyncKeyState('D'))
+		{
+			tank->MoveRight();
+		}
 
-	if (GetAsyncKeyState('X'))
-	{
-		tank->Shoot();
-	}
+		if (GetAsyncKeyState('X'))
+		{
+			tank->Shoot();
+		}
 
-	tank->UpdateBulletPosition();
+		tank->UpdateBulletPosition();
+	}
 }
 
 void TestApp::Render(float dt)
