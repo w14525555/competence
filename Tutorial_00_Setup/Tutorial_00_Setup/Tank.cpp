@@ -47,6 +47,11 @@ Tank::~Tank(void)
 	Memory::SafeDelete(m_Bullet);
 }
 
+const RECT& Tank::GetBulletRect() const
+{
+	return m_Bullet->GetRect();
+}
+
 void Tank::Shoot()
 {
 	//Don't create bullet
@@ -77,6 +82,11 @@ void Tank::UpdateBulletPosition()
 	{
 		m_Bullet->UpdateBulletPosition();
 	}
+}
+
+void Tank::SetBulletInactive()
+{
+	m_Bullet->SetActive(false);
 }
 
 void Tank::SetBulletInitialPosition()

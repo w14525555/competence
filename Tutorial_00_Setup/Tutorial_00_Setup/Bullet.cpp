@@ -23,6 +23,11 @@ const DirectX::SimpleMath::Vector2& Bullet::GetPosition() const
 	return bulletSprite->GetPosition();
 }
 
+const RECT& Bullet::GetRect() const
+{
+	return bulletSprite->GetRectangle();
+}
+
 const bool& Bullet::IsActive() const
 {
 	return isActive;

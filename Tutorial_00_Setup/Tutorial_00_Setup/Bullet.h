@@ -13,6 +13,7 @@ public:
 
 	//Getters
 	const DirectX::SimpleMath::Vector2& GetPosition() const;
+	const RECT& GetRect() const;
 	const bool& IsActive() const;
 	//Setters
 	void SetActive(const bool& aciveOrNot);

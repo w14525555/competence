@@ -18,6 +18,7 @@ public:
 	virtual const UINT& GetWidth() const;
 	virtual const UINT& GetHeight() const;
 	virtual const RECT& GetRectangle() const;
+	virtual const bool& IsActive() const;
 
 	//Setters
 	virtual void SetPosition(const Vector2& position);
@@ -26,6 +27,7 @@ public:
 	virtual void SetColor(const Color& color);
 	virtual void SetAlpha(const float& alpha);
 	virtual void SetRotation(const float& rotation);
+	virtual void SetActive(const bool& activeOrNot);
 
 	//Render Function
 	virtual void Draw(DirectX::SpriteBatch* spriteBatch);
@@ -46,6 +48,7 @@ protected:
 	Color						m_Color;
 	float						m_Alpha;
 	float						m_Rotation;
+	bool						m_IsActived;
 
 };
 

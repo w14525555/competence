@@ -17,6 +17,7 @@ Sprite::Sprite(const Vector2& position)
 	m_Rotation = 0.0f;
 	m_Scale = Vector2(1, 1);
 	m_Color = DirectX::Colors::White.v;
+	m_IsActived = true;
 }
 
 void Sprite::Load(ID3D11Device* device, const wchar_t* pFile)
@@ -75,8 +76,19 @@ const UINT& Sprite::GetHeight() const
 
 const RECT& Sprite::GetRectangle() const
 {
-	return m_SourceRect;
+	RECT rect;
+	rect.left = m_Position.x;
+	rect.top = m_Position.y;
+	rect.right = m_Position.x + m_Width;
+	rect.bottom = m_Position.y + m_Height;
+	return rect;
 }
+
+const bool& Sprite::IsActive() const
+{
+	return m_IsActived;
+}
+
 //Setters
 void Sprite::SetPosition(const Vector2& position)
 {
@@ -108,10 +120,18 @@ void Sprite::SetRotation(const float& rotation)
 	m_Rotation = rotation;
 }
 
+void Sprite::SetActive(const bool& activeOrNot)
+{
+	m_IsActived = activeOrNot;
+}
+
 void Sprite::Draw(DirectX::SpriteBatch* spriteBatch)
 {
-	spriteBatch->Draw(m_pTexture, m_Position, &m_SourceRect, m_Color, m_Rotation, m_Origin,
-		m_Scale, DirectX::SpriteEffects::SpriteEffects_None, 0.0f);
+	if (m_IsActived)
+	{
+		spriteBatch->Draw(m_pTexture, m_Position, &m_SourceRect, m_Color, m_Rotation, m_Origin,
+			m_Scale, DirectX::SpriteEffects::SpriteEffects_None, 0.0f);
+	}
 }
 
 

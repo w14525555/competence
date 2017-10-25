@@ -27,6 +27,8 @@ private:
 	Sprite* sprite;
 
 	void HandleInput();
+	void HandleCollisions();
+	const bool& IsIntersected(const RECT& rectA, const RECT& B) const;
 };
 
 TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance){}
@@ -59,6 +61,7 @@ bool TestApp::Init()
 void TestApp::Update(float dt)
 {
 	HandleInput();
+	HandleCollisions();
 }
 
 void TestApp::HandleInput()
@@ -95,6 +98,31 @@ void TestApp::HandleInput()
 	}
 }
 
+//Handle collisions 
+void TestApp::HandleCollisions()
+{
+	if (IsIntersected(sprite->GetRectangle(), tank->GetBulletRect()))
+	{
+		sprite->SetActive(false);
+		tank->SetBulletInactive();
+	}
+}
+
+//A function to check if two rectangle is intersected.
+const bool& TestApp::IsIntersected(const RECT& rectA, const RECT& rectB) const
+{
+	if (rectA.left < rectB.right && rectA.right > rectB.left &&
+		rectA.top > rectB.bottom && rectA.bottom < rectB.top)
+	{
+		OutputDebugString("Intersected\n");
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void TestApp::Render(float dt)
 {
 	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, DirectX::Colors::CornflowerBlue);
@@ -105,7 +133,10 @@ void TestApp::Render(float dt)
 
 	tank->Draw(spriteBatch.get());
 
-	sprite->Draw(spriteBatch.get());
+	if (sprite->IsActive())
+	{
+		sprite->Draw(spriteBatch.get());
+	}
 
 	spriteBatch->End(); 
 

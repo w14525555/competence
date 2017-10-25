@@ -9,7 +9,9 @@ public:
 	Tank(const Vector2& position, ID3D11Device* pDevice);
 	~Tank();
 	
-	//GetT
+	//Getters
+	const RECT& GetBulletRect() const;
+
 	//Functions
 	void MoveUp();
 	void MoveDown();
@@ -17,6 +19,7 @@ public:
 	void MoveRight();
 	void Shoot();
 	void UpdateBulletPosition();
+	void SetBulletInactive();
 
 	void Draw(DirectX::SpriteBatch* spriteBatch);
 
