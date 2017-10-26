@@ -76,7 +76,7 @@ const UINT& Sprite::GetHeight() const
 	return m_Height;
 }
 
-RECT& Sprite::GetRectangle()
+const RECT& Sprite::GetRectangle() const
 {
 	RECT rect;
 	rect.left = (int)m_Position.x;

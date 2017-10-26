@@ -18,7 +18,7 @@ public:
 	virtual const float& GetRotation() const;
 	virtual const UINT& GetWidth() const;
 	virtual const UINT& GetHeight() const;
-	virtual RECT& GetRectangle();
+	virtual const RECT& GetRectangle() const;
 	virtual const bool& IsActive() const;
 
 	//Setters
