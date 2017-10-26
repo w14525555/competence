@@ -24,7 +24,7 @@ public:
 
 	void Draw(DirectX::SpriteBatch* spriteBatch);
 
-private:
+protected:
 	Sprite* m_Sprite;
 	Sprite* m_LeftSprite;
 	Sprite* m_RightSprite;

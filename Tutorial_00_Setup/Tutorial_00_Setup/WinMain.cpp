@@ -7,6 +7,7 @@
 #include "SpriteFont.h"
 #include "Sprite.h"
 #include "Tank.h"
+#include "Enemy.h"
 
 class TestApp : public DXApp
 {
@@ -26,6 +27,7 @@ private:
 
 	Tank* tank;
 	Sprite* sprite;
+	Enemy* enemy;
 
 	void HandleInput();
 	void HandleCollisions();
@@ -55,6 +57,7 @@ bool TestApp::Init()
 	tank = new Tank(DirectX::SimpleMath::Vector2(100, 100), m_pDevice);
 	sprite = new Sprite(DirectX::SimpleMath::Vector2(200, 100));
 	sprite->Load(m_pDevice, L"TankRight.dds");
+	enemy = new Enemy(DirectX::SimpleMath::Vector2(500, 100), m_pDevice);
 
 	return true;
 }
@@ -63,6 +66,7 @@ void TestApp::Update(float dt)
 {
 	HandleInput();
 	HandleCollisions();
+	enemy->Update();
 }
 
 void TestApp::HandleInput()
@@ -150,7 +154,7 @@ void TestApp::Render(float dt)
 
 	spriteBatch->Begin();
 
-	spriteFont->DrawString(spriteBatch.get(), L"Hello World", DirectX::SimpleMath::Vector2(300, 300));
+	spriteFont->DrawString(spriteBatch.get(), L"Tank Game", DirectX::SimpleMath::Vector2(20, 300));
 
 	tank->Draw(spriteBatch.get());
 
@@ -158,6 +162,8 @@ void TestApp::Render(float dt)
 	{
 		sprite->Draw(spriteBatch.get());
 	}
+
+	enemy->Draw(spriteBatch.get());
 
 	spriteBatch->End(); 
 
