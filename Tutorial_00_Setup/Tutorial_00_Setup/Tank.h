@@ -34,6 +34,7 @@ protected:
 	Bullet* m_Bullet;
 
 	enum Directions::Direction currentDirection;
+	bool isBlocked;
 	const float MOVE_SPEED = 0.1f;
 	const float UPPER_BOUNDRAY = 0.0f;
 	const float LOWER_BOUNDRAY = 600.0f;

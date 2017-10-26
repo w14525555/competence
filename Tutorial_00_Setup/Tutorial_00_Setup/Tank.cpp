@@ -15,6 +15,8 @@ Tank::Tank(const Vector2& position, ID3D11Device* pDevice)
 
 	//Load Bullet
 	m_Bullet = new Bullet(position, pDevice, currentDirection);
+
+	isBlocked = false;
 }
 
 void Tank::LoadSprites(const Vector2& position, ID3D11Device* pDevice)
@@ -120,6 +122,10 @@ void Tank::MoveUp()
 		
 		m_Sprite->SetPosition(DirectX::SimpleMath::Vector2(m_Sprite->GetPosition().x, newY));
 	}
+	else
+	{
+		isBlocked = true;
+	}
 		
 }
 
@@ -136,7 +142,14 @@ void Tank::MoveDown()
 
 	float newY = m_Sprite->GetPosition().y + MOVE_SPEED;
 	if (m_Sprite->GetPosition().y + MOVE_SPEED < LOWER_BOUNDRAY - m_Sprite->GetHeight() / 2)
+	{
 		m_Sprite->SetPosition(DirectX::SimpleMath::Vector2(m_Sprite->GetPosition().x, newY));
+	}
+	else
+	{
+		isBlocked = true;
+	}
+		
 }
 
 void Tank::MoveLeft()
@@ -151,8 +164,14 @@ void Tank::MoveLeft()
 	}
 
 	float newX = m_Sprite->GetPosition().x - MOVE_SPEED;
-	if(m_Sprite->GetPosition().x - MOVE_SPEED > LEFT_BOUNDRAY + m_Sprite->GetWidth() / 2)
+	if (m_Sprite->GetPosition().x - MOVE_SPEED > LEFT_BOUNDRAY + m_Sprite->GetWidth() / 2)
+	{
 		m_Sprite->SetPosition(Vector2(newX, m_Sprite->GetPosition().y));
+	}
+	else
+	{
+		isBlocked = true;
+	}
 }
 
 void Tank::MoveRight()
@@ -167,8 +186,14 @@ void Tank::MoveRight()
 	}
 
 	float newX = m_Sprite->GetPosition().x + MOVE_SPEED;
-	if(m_Sprite->GetPosition().x + MOVE_SPEED < RIGHT_BOUNDRAY - m_Sprite->GetWidth() / 2)
+	if (m_Sprite->GetPosition().x + MOVE_SPEED < RIGHT_BOUNDRAY - m_Sprite->GetWidth() / 2)
+	{
 		m_Sprite->SetPosition(Vector2(newX, m_Sprite->GetPosition().y));
+	}
+	else
+	{
+		isBlocked = true;
+	}
 }
 
 

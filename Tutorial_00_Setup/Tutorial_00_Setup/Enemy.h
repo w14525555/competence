@@ -21,5 +21,6 @@ private:
 	Direction newDirection;
 
 	void Move(Direction direction);
+	Direction GetOppsiteDirection(Direction direction);
 };
 

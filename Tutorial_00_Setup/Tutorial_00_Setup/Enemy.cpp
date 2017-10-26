@@ -21,9 +21,38 @@ void Enemy::Hit(Direction hitDirection)
 	stepLeft = 1000;
 }
 
+Direction Enemy::GetOppsiteDirection(Direction direction)
+{
+	switch (direction)
+	{
+	case UP:
+		return DOWN;
+		break;
+	case DOWN:
+		return UP;
+		break;
+	case RIGHT:
+		return LEFT;
+		break;
+	case LEFT:
+		return RIGHT;
+		break;
+	default:
+		return UP;
+		break;
+	}
+}
+
 void Enemy::Update()
 {
-	if (stepLeft < 1)
+	if (isBlocked)
+	{
+		newDirection = GetOppsiteDirection(currentDirection);
+		stepLeft = GetRandomNumStep();
+		isBlocked = false;
+		Move(newDirection);
+	}
+	else if (stepLeft < 1)
 	{
 		newDirection = GetRandomDirection();
 		stepLeft = GetRandomNumStep();
@@ -43,7 +72,7 @@ Direction Enemy::GetRandomDirection()
 
 int Enemy::GetRandomNumStep()
 {
-	return rand() % 2000 + 1000;
+	return rand() % 2000 + 500;
 }
 
 void Enemy::Move(Direction direction)
