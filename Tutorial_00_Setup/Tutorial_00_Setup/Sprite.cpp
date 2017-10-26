@@ -1,5 +1,7 @@
+#include <cmath>
 #include "Sprite.h"
 #include "DDSTextureLoader.h"
+
 
 Sprite::Sprite(){}
 
@@ -74,13 +76,13 @@ const UINT& Sprite::GetHeight() const
 	return m_Height;
 }
 
-const RECT& Sprite::GetRectangle() const
+RECT& Sprite::GetRectangle()
 {
 	RECT rect;
-	rect.left = m_Position.x;
-	rect.top = m_Position.y;
-	rect.right = m_Position.x + m_Width;
-	rect.bottom = m_Position.y + m_Height;
+	rect.left = (int)m_Position.x;
+	rect.top = (int)m_Position.y;
+	rect.right = rect.left + m_Width;
+	rect.bottom = rect.top + m_Height;
 	return rect;
 }
 

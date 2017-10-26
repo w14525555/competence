@@ -1,5 +1,6 @@
 #pragma once
 #include "IElement2D.h"
+using namespace DirectX::SimpleMath;
 
 class Sprite: public IElement2D
 {
@@ -17,7 +18,7 @@ public:
 	virtual const float& GetRotation() const;
 	virtual const UINT& GetWidth() const;
 	virtual const UINT& GetHeight() const;
-	virtual const RECT& GetRectangle() const;
+	virtual RECT& GetRectangle();
 	virtual const bool& IsActive() const;
 
 	//Setters

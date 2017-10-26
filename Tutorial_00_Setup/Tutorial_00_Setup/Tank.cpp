@@ -43,13 +43,17 @@ Tank::~Tank(void)
 	Memory::SafeDelete(m_RightSprite);
 	Memory::SafeDelete(m_DownSprite);
 	Memory::SafeDelete(m_UpSprite);
-
 	Memory::SafeDelete(m_Bullet);
 }
 
 const RECT& Tank::GetBulletRect() const
 {
 	return m_Bullet->GetRect();
+}
+
+const RECT& Tank::GetTankRect() const
+{
+	return m_Sprite->GetRectangle();
 }
 
 void Tank::Shoot()
@@ -143,7 +147,7 @@ void Tank::MoveLeft()
 
 	float newX = m_Sprite->GetPosition().x - MOVE_SPEED;
 	if(m_Sprite->GetPosition().x - MOVE_SPEED > LEFT_BOUNDRAY + m_Sprite->GetWidth() / 2)
-		m_Sprite->SetPosition(DirectX::SimpleMath::Vector2(newX, m_Sprite->GetPosition().y));
+		m_Sprite->SetPosition(Vector2(newX, m_Sprite->GetPosition().y));
 }
 
 void Tank::MoveRight()
@@ -159,7 +163,7 @@ void Tank::MoveRight()
 
 	float newX = m_Sprite->GetPosition().x + MOVE_SPEED;
 	if(m_Sprite->GetPosition().x + MOVE_SPEED < RIGHT_BOUNDRAY - m_Sprite->GetWidth() / 2)
-		m_Sprite->SetPosition(DirectX::SimpleMath::Vector2(newX, m_Sprite->GetPosition().y));
+		m_Sprite->SetPosition(Vector2(newX, m_Sprite->GetPosition().y));
 }
 
 

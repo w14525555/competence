@@ -1,4 +1,5 @@
 #include <memory>
+#include <iostream>
 #include "DXApp.h"
 #include "SpriteBatch.h"
 #include "DDSTextureLoader.h"
@@ -94,6 +95,20 @@ void TestApp::HandleInput()
 			tank->Shoot();
 		}
 
+		if (GetAsyncKeyState('C'))
+		{
+			
+			RECT rect = tank->GetTankRect();
+			
+			RECT rectB = sprite->GetRectangle();
+			char buffer[1000];
+			sprintf_s(buffer, "Tank: %ld, %ld, %ld, %ld\n", rect.left, rect.right, rect.top, rect.bottom);
+			OutputDebugString(buffer);
+			sprintf_s(buffer, "Block: %ld, %ld, %ld, %ld\n", rectB.left, rectB.right, rectB.top, rectB.bottom);
+			OutputDebugString(buffer);
+
+		}
+
 		tank->UpdateBulletPosition();
 	}
 }
@@ -101,18 +116,24 @@ void TestApp::HandleInput()
 //Handle collisions 
 void TestApp::HandleCollisions()
 {
-	if (IsIntersected(sprite->GetRectangle(), tank->GetBulletRect()))
+	if (sprite->IsActive())
 	{
-		sprite->SetActive(false);
-		tank->SetBulletInactive();
+		RECT rectA = sprite->GetRectangle();
+		RECT rectB = tank->GetBulletRect();
+		if (IsIntersected(rectA, rectB) || IsIntersected(rectB, rectA))
+		{
+			sprite->SetActive(false);
+			tank->SetBulletInactive();
+		}
 	}
+
 }
 
 //A function to check if two rectangle is intersected.
 const bool& TestApp::IsIntersected(const RECT& rectA, const RECT& rectB) const
 {
-	if (rectA.left < rectB.right && rectA.right > rectB.left &&
-		rectA.top > rectB.bottom && rectA.bottom < rectB.top)
+	if (rectA.left <= rectB.right && rectA.right >= rectB.left &&
+		rectA.top <= rectB.bottom && rectA.bottom >= rectB.top)
 	{
 		OutputDebugString("Intersected\n");
 		return true;

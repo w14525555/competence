@@ -11,6 +11,7 @@ public:
 	
 	//Getters
 	const RECT& GetBulletRect() const;
+	const RECT& GetTankRect() const;
 
 	//Functions
 	void MoveUp();
