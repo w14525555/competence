@@ -15,17 +15,23 @@ Enemy::~Enemy()
 {
 }
 
+void Enemy::Hit(Direction hitDirection)
+{
+	currentDirection = hitDirection;
+	stepLeft = 1000;
+}
+
 void Enemy::Update()
 {
 	if (stepLeft < 1)
 	{
 		newDirection = GetRandomDirection();
 		stepLeft = GetRandomNumStep();
-		Move();
+		Move(newDirection);
 	}
 	else
 	{
-		Move();
+		Move(currentDirection);
 	}
 }
 
@@ -40,10 +46,10 @@ int Enemy::GetRandomNumStep()
 	return rand() % 2000 + 1000;
 }
 
-void Enemy::Move()
+void Enemy::Move(Direction direction)
 {
 	stepLeft -= 1;
-	switch (newDirection)
+	switch (direction)
 	{
 	case UP:
 		MoveUp();

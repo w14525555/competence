@@ -23,6 +23,7 @@
     <ProjectGuid>{D22C5579-CBDF-4E08-B1C6-F3BD0F213101}</ProjectGuid>
     <RootNamespace>Tutorial_00_Setup</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
+    <ProjectName>TankGame</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

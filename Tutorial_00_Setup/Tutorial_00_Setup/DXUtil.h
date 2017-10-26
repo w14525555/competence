@@ -56,6 +56,7 @@ namespace Memory
 namespace Utility
 {
 	void GetTextureDim(ID3D11Resource* res, UINT* width, UINT* height);
+	const bool& IsIntersected(const RECT& rectA, const RECT& B);
 }
 
 namespace Directions

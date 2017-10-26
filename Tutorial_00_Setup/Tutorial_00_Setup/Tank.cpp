@@ -56,6 +56,11 @@ const RECT& Tank::GetTankRect() const
 	return m_Sprite->GetRectangle();
 }
 
+const Direction& Tank::GetBulletDirection() const
+{
+	return m_Bullet->GetDirection();
+}
+
 void Tank::Shoot()
 {
 	//Don't create bullet
@@ -165,6 +170,8 @@ void Tank::MoveRight()
 	if(m_Sprite->GetPosition().x + MOVE_SPEED < RIGHT_BOUNDRAY - m_Sprite->GetWidth() / 2)
 		m_Sprite->SetPosition(Vector2(newX, m_Sprite->GetPosition().y));
 }
+
+
 
 
 

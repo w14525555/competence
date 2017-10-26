@@ -23,3 +23,18 @@ void Utility::GetTextureDim(ID3D11Resource* res, UINT* width, UINT* height)
 	}
 	}
 }
+
+//A function to check if two rectangle is intersected.
+const bool& Utility::IsIntersected(const RECT& rectA, const RECT& rectB)
+{
+	if (rectA.left <= rectB.right && rectA.right >= rectB.left &&
+		rectA.top <= rectB.bottom && rectA.bottom >= rectB.top)
+	{
+		OutputDebugString("Intersected\n");
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

@@ -33,6 +33,11 @@ const bool& Bullet::IsActive() const
 	return isActive;
 }
 
+const Direction& Bullet::GetDirection() const
+{
+	return m_Direction;
+}
+
 void Bullet::SetActive(const bool& aciveOrNot)
 {
 	isActive = aciveOrNot;

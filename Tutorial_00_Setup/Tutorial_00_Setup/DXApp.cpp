@@ -130,7 +130,7 @@ bool DXApp::InitDirect3D()
 	D3D_DRIVER_TYPE driverTypes[] =
 	{
 		D3D_DRIVER_TYPE_HARDWARE,
-		D3D_DRIVER_TYPE_WARP,//Dont't have hardware
+		D3D_DRIVER_TYPE_WARP,//Don't have hardware
 		D3D_DRIVER_TYPE_REFERENCE //Also Don't have
 	};
 
@@ -147,7 +147,7 @@ bool DXApp::InitDirect3D()
 
 	DXGI_SWAP_CHAIN_DESC swapDesc;
 	ZeroMemory(&swapDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
-	swapDesc.BufferCount = 1; //double fuffered
+	swapDesc.BufferCount = 1; //double buffered
 	swapDesc.BufferDesc.Width = m_ClientWidth;
 	swapDesc.BufferDesc.Height = m_ClientHeight;
 	swapDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;

@@ -12,13 +12,14 @@ public:
 	~Enemy();
 
 	void Update();
-	Direction GetRandomDirection();
+	void Hit(Direction hitDirection);
 	int GetRandomNumStep();
+	Direction GetRandomDirection();
 
 private:
 	int stepLeft;
 	Direction newDirection;
 
-	void Move();
+	void Move(Direction direction);
 };
 

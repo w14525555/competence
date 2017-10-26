@@ -31,7 +31,8 @@ private:
 
 	void HandleInput();
 	void HandleCollisions();
-	const bool& IsIntersected(const RECT& rectA, const RECT& B) const;
+	void HanldeBlockCollisions();
+	void HandleEnemyCollisions();
 };
 
 TestApp::TestApp(HINSTANCE hInstance) : DXApp(hInstance){}
@@ -69,85 +70,6 @@ void TestApp::Update(float dt)
 	enemy->Update();
 }
 
-void TestApp::HandleInput()
-{
-	if (tank)
-	{
-		//Move the tank
-		if (GetAsyncKeyState(VK_UP))
-		{
-			tank->MoveUp();
-		}
-
-		if (GetAsyncKeyState(VK_DOWN))
-		{
-			tank->MoveDown();
-		}
-
-		if (GetAsyncKeyState(VK_LEFT))
-		{
-			tank->MoveLeft();
-		}
-
-		if (GetAsyncKeyState(VK_RIGHT))
-		{
-			tank->MoveRight();
-		}
-
-		if (GetAsyncKeyState('X'))
-		{
-			tank->Shoot();
-		}
-
-		if (GetAsyncKeyState('C'))
-		{
-			
-			RECT rect = tank->GetTankRect();
-			
-			RECT rectB = sprite->GetRectangle();
-			char buffer[1000];
-			sprintf_s(buffer, "Tank: %ld, %ld, %ld, %ld\n", rect.left, rect.right, rect.top, rect.bottom);
-			OutputDebugString(buffer);
-			sprintf_s(buffer, "Block: %ld, %ld, %ld, %ld\n", rectB.left, rectB.right, rectB.top, rectB.bottom);
-			OutputDebugString(buffer);
-
-		}
-
-		tank->UpdateBulletPosition();
-	}
-}
-
-//Handle collisions 
-void TestApp::HandleCollisions()
-{
-	if (sprite->IsActive())
-	{
-		RECT rectA = sprite->GetRectangle();
-		RECT rectB = tank->GetBulletRect();
-		if (IsIntersected(rectA, rectB) || IsIntersected(rectB, rectA))
-		{
-			sprite->SetActive(false);
-			tank->SetBulletInactive();
-		}
-	}
-
-}
-
-//A function to check if two rectangle is intersected.
-const bool& TestApp::IsIntersected(const RECT& rectA, const RECT& rectB) const
-{
-	if (rectA.left <= rectB.right && rectA.right >= rectB.left &&
-		rectA.top <= rectB.bottom && rectA.bottom >= rectB.top)
-	{
-		OutputDebugString("Intersected\n");
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
 void TestApp::Render(float dt)
 {
 	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, DirectX::Colors::CornflowerBlue);
@@ -181,5 +103,87 @@ int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, _
 	}
 
 	return tApp.Run();
+
+}
+
+void TestApp::HandleInput()
+{
+	if (tank)
+	{
+		//Move the tank
+		if (GetAsyncKeyState(VK_UP))
+		{
+			tank->MoveUp();
+		}
+
+		if (GetAsyncKeyState(VK_DOWN))
+		{
+			tank->MoveDown();
+		}
+
+		if (GetAsyncKeyState(VK_LEFT))
+		{
+			tank->MoveLeft();
+		}
+
+		if (GetAsyncKeyState(VK_RIGHT))
+		{
+			tank->MoveRight();
+		}
+
+		if (GetAsyncKeyState('X'))
+		{
+			tank->Shoot();
+		}
+
+		if (GetAsyncKeyState('C'))
+		{
+
+			RECT rect = tank->GetTankRect();
+
+			RECT rectB = sprite->GetRectangle();
+			char buffer[1000];
+			sprintf_s(buffer, "Tank: %ld, %ld, %ld, %ld\n", rect.left, rect.right, rect.top, rect.bottom);
+			OutputDebugString(buffer);
+			sprintf_s(buffer, "Block: %ld, %ld, %ld, %ld\n", rectB.left, rectB.right, rectB.top, rectB.bottom);
+			OutputDebugString(buffer);
+
+		}
+
+		tank->UpdateBulletPosition();
+	}
+}
+
+//Handle collisions 
+void TestApp::HandleCollisions()
+{
+	HanldeBlockCollisions();
+	HandleEnemyCollisions();
+}
+
+void TestApp::HanldeBlockCollisions()
+{
+	if (sprite->IsActive())
+	{
+		RECT rectA = sprite->GetRectangle();
+		RECT rectB = tank->GetBulletRect();
+		if (Utility::IsIntersected(rectA, rectB) || Utility::IsIntersected(rectB, rectA))
+		{
+			sprite->SetActive(false);
+			tank->SetBulletInactive();
+		}
+	}
+}
+
+void TestApp::HandleEnemyCollisions()
+{
+	RECT rectA = enemy->GetTankRect();
+	RECT rectB = tank->GetBulletRect();
+	if (Utility::IsIntersected(rectA, rectB) || Utility::IsIntersected(rectB, rectA))
+	{
+		tank->SetBulletInactive();
+		enemy->Hit(tank->GetBulletDirection());
+		OutputDebugString("Hit!");
+	}
 
 }
