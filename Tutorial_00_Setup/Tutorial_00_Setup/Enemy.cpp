@@ -45,6 +45,7 @@ Direction Enemy::GetOppsiteDirection(Direction direction)
 
 void Enemy::Update()
 {
+	//If the way is blocked, change to oppsite direction
 	if (isBlocked)
 	{
 		newDirection = GetOppsiteDirection(currentDirection);

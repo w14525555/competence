@@ -117,6 +117,7 @@
     <ClCompile Include="DXERR\dxerr.cpp" />
     <ClCompile Include="DXUtil.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="DXERR\dxerr.h" />
     <ClInclude Include="DXUtil.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GameApp.h" />
     <ClInclude Include="IElement2D.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Tank.h" />
