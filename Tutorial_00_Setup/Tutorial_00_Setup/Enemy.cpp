@@ -43,7 +43,7 @@ Direction Enemy::GetOppsiteDirection(Direction direction)
 	}
 }
 
-void Enemy::Update()
+void Enemy::Update(const Tank& player)
 {
 	//If the way is blocked, change to oppsite direction
 	if (isBlocked)
@@ -63,6 +63,8 @@ void Enemy::Update()
 	{
 		Move(currentDirection);
 	}
+
+	CheckIfCanSeePlayer(player);
 }
 
 Direction Enemy::GetRandomDirection()
@@ -95,5 +97,57 @@ void Enemy::Move(Direction direction)
 		break;
 	default:
 		break;
+	}
+}
+
+void Enemy::CheckIfCanSeePlayer(const Tank& player)
+{
+	Vector2 playerPos = player.GetPlayerPosition();
+	switch (currentDirection)
+	{
+	case UP:
+		CheckIfPlayerOnTop(playerPos);
+		break;
+	case DOWN:
+		CheckIfPlayerDown(playerPos);
+		break;
+	case RIGHT:
+		CheckIfPlayerOnRight(playerPos);
+		break;
+	case LEFT:
+		CheckIfPlayerOnLeft(playerPos);
+		break;
+	}
+}
+
+void Enemy::CheckIfPlayerOnTop(const Vector2& playerPos)
+{
+	if (abs(playerPos.x - m_Sprite->GetPosition().x) < 50 && playerPos.y - m_Sprite->GetPosition().y < 0)
+	{
+		Shoot();
+	}
+}
+
+void Enemy::CheckIfPlayerDown(const Vector2& playerPos)
+{
+	if (abs(playerPos.x - m_Sprite->GetPosition().x) < 50 && playerPos.y - m_Sprite->GetPosition().y > 0)
+	{
+		Shoot();
+	}
+}
+
+void Enemy::CheckIfPlayerOnRight(const Vector2& playerPos)
+{
+	if (abs(playerPos.y - m_Sprite->GetPosition().y) < 50 && playerPos.x - m_Sprite->GetPosition().x > 0)
+	{
+		Shoot();
+	}
+}
+
+void Enemy::CheckIfPlayerOnLeft(const Vector2& playerPos)
+{
+	if (abs(playerPos.y - m_Sprite->GetPosition().y) < 50 && playerPos.x - m_Sprite->GetPosition().x < 0)
+	{
+		Shoot();
 	}
 }

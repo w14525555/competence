@@ -13,6 +13,7 @@ public:
 	const RECT& GetBulletRect() const;
 	const RECT& GetTankRect() const;
 	const Direction& GetBulletDirection() const;
+	const Vector2& GetPlayerPosition() const;
 
 	//Functions
 	void MoveUp();

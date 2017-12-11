@@ -196,6 +196,11 @@ void Tank::MoveRight()
 	}
 }
 
+const Vector2& Tank::GetPlayerPosition() const
+{
+	return m_Sprite->GetPosition();
+}
+
 
 
 

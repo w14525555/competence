@@ -35,7 +35,8 @@ void GameApp::Update(float dt)
 {
 	HandleInput();
 	HandleCollisions();
-	enemy->Update();
+	enemy->Update(*tank);
+	enemy->UpdateBulletPosition();
 }
 
 void GameApp::Render(float dt)
