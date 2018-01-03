@@ -4,6 +4,7 @@
 #include "Tank.h"
 #include "Enemy.h"
 #include "SpriteFont.h"
+#include "MainScreen.h"
 
 
 class GameApp : public DXApp
@@ -22,13 +23,7 @@ private:
 	std::unique_ptr<DirectX::SpriteBatch> spriteBatch;
 	std::unique_ptr<DirectX::SpriteFont> spriteFont;
 
-	Tank* tank;
-	Sprite* sprite;
-	Enemy* enemy;
+	MainScreen* mainScreen;
 
-	void HandleInput();
-	void HandleCollisions();
-	void HanldeBlockCollisions();
-	void HandleEnemyCollisions();
 };
 
