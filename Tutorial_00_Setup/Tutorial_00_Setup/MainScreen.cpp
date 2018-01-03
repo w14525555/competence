@@ -7,7 +7,7 @@ MainScreen::MainScreen()
 MainScreen::~MainScreen()
 {
 	Memory::SafeDelete(tank);
-	Memory::SafeDelete(sprite);
+	Memory::SafeDelete(blackHole);
 }
 
 void MainScreen::HandleInput()
@@ -45,7 +45,7 @@ void MainScreen::HandleInput()
 
 			RECT rect = tank->GetTankRect();
 
-			RECT rectB = sprite->GetRectangle();
+			RECT rectB = blackHole->GetRectangle();
 			char buffer[1000];
 			sprintf_s(buffer, "Tank: %ld, %ld, %ld, %ld\n", rect.left, rect.right, rect.top, rect.bottom);
 			OutputDebugString(buffer);
@@ -60,19 +60,19 @@ void MainScreen::HandleInput()
 
 void MainScreen::HandleCollisions()
 {
-	HanldeBlockCollisions();
+	HanldeBlackHoleCollisions();
 	HandleEnemyCollisions();
 }
 
-void MainScreen::HanldeBlockCollisions()
+void MainScreen::HanldeBlackHoleCollisions()
 {
-	if (sprite->IsActive())
+	if (blackHole->IsActive())
 	{
-		RECT rectA = sprite->GetRectangle();
-		RECT rectB = tank->GetBulletRect();
+		RECT rectA = blackHole->GetRectangle();
+		RECT rectB = enemy->GetTankRect();
 		if (Utility::IsIntersected(rectA, rectB) || Utility::IsIntersected(rectB, rectA))
 		{
-			sprite->SetActive(false);
+			blackHole->SetActive(false);
 			tank->SetBulletInactive();
 		}
 	}
@@ -93,8 +93,8 @@ void MainScreen::HandleEnemyCollisions()
 void MainScreen::Init(ID3D11Device* m_pDevice)
 {
 	tank = new Tank(DirectX::SimpleMath::Vector2(100, 100), m_pDevice);
-	sprite = new Sprite(DirectX::SimpleMath::Vector2(200, 100));
-	sprite->Load(m_pDevice, L"TankRight.dds");
+	blackHole = new Sprite(DirectX::SimpleMath::Vector2(400, 300));
+	blackHole->Load(m_pDevice, L"BlackHole.dds");
 	enemy = new Enemy(DirectX::SimpleMath::Vector2(500, 100), m_pDevice);
 }
 
@@ -110,9 +110,9 @@ void MainScreen::Render(std::unique_ptr<DirectX::SpriteBatch> & spriteBatch)
 
 	tank->Draw(spriteBatch.get());
 
-	if (sprite->IsActive())
+	if (blackHole->IsActive())
 	{
-		sprite->Draw(spriteBatch.get());
+		blackHole->Draw(spriteBatch.get());
 	}
 
 	enemy->Draw(spriteBatch.get());

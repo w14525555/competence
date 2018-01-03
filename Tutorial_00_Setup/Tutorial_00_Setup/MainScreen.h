@@ -14,12 +14,12 @@ public:
 
 private:
 	Tank* tank;
-	Sprite* sprite;
+	Sprite* blackHole;
 	Enemy* enemy;
 
 	void HandleInput();
 	void HandleCollisions();
-	void HanldeBlockCollisions();
+	void HanldeBlackHoleCollisions();
 	void HandleEnemyCollisions();
 	void UpdateEnemy();
 };
