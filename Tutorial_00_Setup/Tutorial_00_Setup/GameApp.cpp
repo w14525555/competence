@@ -21,13 +21,14 @@ bool GameApp::Init()
 
 	mainScreen = new MainScreen();
 	mainScreen->Init(m_pDevice);
+	currentScreen = mainScreen;
 
 	return true;
 }
 
 void GameApp::Update(float dt)
 {
-	mainScreen->Update();
+	currentScreen->Update();
 }
 
 void GameApp::Render(float dt)
@@ -38,7 +39,7 @@ void GameApp::Render(float dt)
 
 	spriteFont->DrawString(spriteBatch.get(), L"Tank Game", DirectX::SimpleMath::Vector2(20, 300));
 
-	mainScreen->Render(spriteBatch);
+	currentScreen->Render(spriteBatch);
 
 	HR(m_pSwapChain->Present(0, 0));
 }

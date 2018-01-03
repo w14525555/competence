@@ -24,6 +24,7 @@ private:
 	std::unique_ptr<DirectX::SpriteFont> spriteFont;
 
 	MainScreen* mainScreen;
+	Screen* currentScreen;
 
 };
 
