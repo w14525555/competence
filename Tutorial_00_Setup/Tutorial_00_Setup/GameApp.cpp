@@ -39,7 +39,7 @@ void GameApp::Render(float dt)
 
 	spriteFont->DrawString(spriteBatch.get(), L"Tank Game", DirectX::SimpleMath::Vector2(20, 300));
 
-	currentScreen->Render(spriteBatch);
+	currentScreen->Render(spriteBatch, spriteFont);
 
 	HR(m_pSwapChain->Present(0, 0));
 }

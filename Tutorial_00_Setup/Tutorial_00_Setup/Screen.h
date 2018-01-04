@@ -9,5 +9,5 @@ class Screen
 public:
 	virtual void Update() = 0;
 	virtual void Init(ID3D11Device* m_pDevice) = 0;
-	virtual void Render(std::unique_ptr<DirectX::SpriteBatch> & spriteBatch) = 0;
+	virtual void Render(std::unique_ptr<DirectX::SpriteBatch> & spriteBatch, std::unique_ptr<DirectX::SpriteFont> & spriteFont) = 0;
 };

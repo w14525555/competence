@@ -105,7 +105,7 @@ void MainScreen::Update()
 	UpdateEnemy();
 }
 
-void MainScreen::Render(std::unique_ptr<DirectX::SpriteBatch> & spriteBatch)
+void MainScreen::Render(std::unique_ptr<DirectX::SpriteBatch> & spriteBatch, std::unique_ptr<DirectX::SpriteFont> & spriteFont)
 {
 
 	tank->Draw(spriteBatch.get());
