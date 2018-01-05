@@ -8,6 +8,7 @@ Enemy::Enemy(const Vector2& position, ID3D11Device* pDevice)
 	:Tank(position, pDevice)
 {
 	stepLeft = 1000;
+	cdLeft = 0;
 	newDirection = currentDirection;
 }
 
@@ -65,6 +66,11 @@ void Enemy::Update(const Tank& player)
 	}
 
 	CheckIfCanSeePlayer(player);
+
+	if (cdLeft > 0)
+	{
+		cdLeft--;
+	}
 }
 
 Direction Enemy::GetRandomDirection()
@@ -103,21 +109,26 @@ void Enemy::Move(Direction direction)
 void Enemy::CheckIfCanSeePlayer(const Tank& player)
 {
 	Vector2 playerPos = player.GetPlayerPosition();
-	switch (currentDirection)
+	if (cdLeft == 0)
 	{
-	case UP:
-		CheckIfPlayerOnTop(playerPos);
-		break;
-	case DOWN:
-		CheckIfPlayerDown(playerPos);
-		break;
-	case RIGHT:
-		CheckIfPlayerOnRight(playerPos);
-		break;
-	case LEFT:
-		CheckIfPlayerOnLeft(playerPos);
-		break;
+		switch (currentDirection)
+		{
+		case UP:
+			CheckIfPlayerOnTop(playerPos);
+			break;
+		case DOWN:
+			CheckIfPlayerDown(playerPos);
+			break;
+		case RIGHT:
+			CheckIfPlayerOnRight(playerPos);
+			break;
+		case LEFT:
+			CheckIfPlayerOnLeft(playerPos);
+			break;
+		}
+		cdLeft = COOL_DOWN_TIME;
 	}
+	
 }
 
 void Enemy::CheckIfPlayerOnTop(const Vector2& playerPos)

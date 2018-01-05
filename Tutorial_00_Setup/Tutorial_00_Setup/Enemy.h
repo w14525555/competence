@@ -18,6 +18,8 @@ public:
 
 private:
 	int stepLeft;
+	const int COOL_DOWN_TIME = 200;
+	int cdLeft;
 	Direction newDirection;
 
 	void Move(Direction direction);

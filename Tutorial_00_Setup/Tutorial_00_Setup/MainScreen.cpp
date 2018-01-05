@@ -94,7 +94,7 @@ void MainScreen::HandleEnemyCollisions()
 void MainScreen::Init(ID3D11Device* m_pDevice)
 {
 	tank = new Tank(DirectX::SimpleMath::Vector2(100, 100), m_pDevice);
-	blackHole = new Sprite(DirectX::SimpleMath::Vector2(400, 300));
+	blackHole = new Sprite(DirectX::SimpleMath::Vector2(100, 300));
 	blackHole->Load(m_pDevice, L"BlackHole.dds");
 	enemy = new Enemy(DirectX::SimpleMath::Vector2(500, 100), m_pDevice);
 }
