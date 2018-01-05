@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "SpriteFont.h"
 #include "MainScreen.h"
+#include "GameEndScreen.h"
 
 
 class GameApp : public DXApp
@@ -24,6 +25,7 @@ private:
 	std::unique_ptr<DirectX::SpriteFont> spriteFont;
 
 	MainScreen* mainScreen;
+	GameEndScreen* gameEndScreen;
 	Screen* currentScreen;
 
 };

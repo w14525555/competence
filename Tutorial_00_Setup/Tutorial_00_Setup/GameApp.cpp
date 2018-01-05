@@ -21,6 +21,7 @@ bool GameApp::Init()
 
 	mainScreen = new MainScreen();
 	mainScreen->Init(m_pDevice);
+	gameEndScreen = new GameEndScreen();
 	currentScreen = mainScreen;
 
 	return true;
@@ -29,6 +30,10 @@ bool GameApp::Init()
 void GameApp::Update(float dt)
 {
 	currentScreen->Update();
+	if (currentScreen->readyForNextScene)
+	{
+		currentScreen = gameEndScreen;
+	}
 }
 
 void GameApp::Render(float dt)

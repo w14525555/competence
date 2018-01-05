@@ -15,3 +15,11 @@ void GameEndScreen::Render(std::unique_ptr<DirectX::SpriteBatch> & spriteBatch, 
 {
 
 }
+
+void GameEndScreen::Init(ID3D11Device* m_pDevice)
+{
+}
+
+void GameEndScreen::Update()
+{
+}
