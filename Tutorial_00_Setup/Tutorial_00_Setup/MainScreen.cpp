@@ -66,7 +66,7 @@ void MainScreen::HandleCollisions()
 
 void MainScreen::HanldeBlackHoleCollisions()
 {
-	if (blackHole->IsActive())
+	if (blackHole->IsActive() && enemy->isPushed == true)
 	{
 		RECT rectA = blackHole->GetRectangle();
 		RECT rectB = enemy->GetTankRect();

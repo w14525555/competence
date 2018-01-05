@@ -15,6 +15,7 @@ public:
 	void Hit(Direction hitDirection);
 	int GetRandomNumStep();
 	Direction GetRandomDirection();
+	bool isPushed = false;
 
 private:
 	int stepLeft;

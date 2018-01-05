@@ -19,6 +19,7 @@ Enemy::~Enemy()
 void Enemy::Hit(Direction hitDirection)
 {
 	currentDirection = hitDirection;
+	isPushed = true;
 	stepLeft = 1000;
 }
 
@@ -59,6 +60,7 @@ void Enemy::Update(const Tank& player)
 		newDirection = GetRandomDirection();
 		stepLeft = GetRandomNumStep();
 		Move(newDirection);
+		isPushed = false;
 	}
 	else
 	{
