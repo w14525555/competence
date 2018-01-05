@@ -74,6 +74,7 @@ void MainScreen::HanldeBlackHoleCollisions()
 		{
 			blackHole->SetActive(false);
 			tank->SetBulletInactive();
+			readyForNextScene = true;
 		}
 	}
 }
@@ -116,8 +117,6 @@ void MainScreen::Render(std::unique_ptr<DirectX::SpriteBatch> & spriteBatch, std
 	}
 
 	enemy->Draw(spriteBatch.get());
-
-	spriteBatch->End();
 }
 
 void MainScreen::UpdateEnemy()
