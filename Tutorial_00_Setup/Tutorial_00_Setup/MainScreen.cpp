@@ -1,3 +1,4 @@
+#include <string>
 #include "MainScreen.h"
 
 MainScreen::MainScreen()
@@ -117,6 +118,30 @@ void MainScreen::Render(std::unique_ptr<DirectX::SpriteBatch> & spriteBatch, std
 	}
 
 	enemy->Draw(spriteBatch.get());
+
+	spriteFont->DrawString(spriteBatch.get(), L"Health: ", DirectX::SimpleMath::Vector2(400, 0));
+
+	switch (tank->health)
+	{
+	case 3: 
+	{
+		spriteFont->DrawString(spriteBatch.get(), L"3 ", DirectX::SimpleMath::Vector2(500, 0));
+		break;
+	}
+	case 2:
+	{
+		spriteFont->DrawString(spriteBatch.get(), L"2 ", DirectX::SimpleMath::Vector2(500, 0));
+		break;
+	}
+	case 1:
+	{
+		spriteFont->DrawString(spriteBatch.get(), L"1 ", DirectX::SimpleMath::Vector2(500, 0));
+		break;
+	}
+	default:
+		break;
+	}
+	//spriteFont->DrawString(spriteBatch.get(), std::to_wstring(), DirectX::SimpleMath::Vector2(400, 0));
 }
 
 void MainScreen::UpdateEnemy()

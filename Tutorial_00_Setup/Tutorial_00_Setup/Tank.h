@@ -5,6 +5,7 @@
 class Tank
 {
 public:
+	int health = 3;
 	Tank();
 	Tank(const Vector2& position, ID3D11Device* pDevice);
 	~Tank();
