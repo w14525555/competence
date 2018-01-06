@@ -63,6 +63,7 @@ void MainScreen::HandleCollisions()
 {
 	HanldeBlackHoleCollisions();
 	HandleEnemyCollisions();
+	HandlePlayerCollisions();
 }
 
 void MainScreen::HanldeBlackHoleCollisions()
@@ -89,6 +90,30 @@ void MainScreen::HandleEnemyCollisions()
 		tank->SetBulletInactive();
 		enemy->Hit(tank->GetBulletDirection());
 		OutputDebugString("Hit!");
+	}
+}
+
+void MainScreen::HandlePlayerCollisions()
+{
+	if(bulletProfTime < 1)
+	{ 
+	RECT rectA = tank->GetTankRect();
+	RECT rectB = enemy->GetBulletRect();
+	if (Utility::IsIntersected(rectA, rectB) || Utility::IsIntersected(rectB, rectA) && enemy->IsBulletActive())
+	{
+		enemy->SetBulletInactive();
+		tank->health = tank->health -1;
+		if (tank->health < 1)
+		{
+			isPlayerKilled = true;
+			readyForNextScene = true;
+		}
+		bulletProfTime = 300;
+	}
+	}
+	else
+	{
+		bulletProfTime--;
 	}
 }
 
@@ -149,3 +174,4 @@ void MainScreen::UpdateEnemy()
 	enemy->Update(*tank);
 	enemy->UpdateBulletPosition();
 }
+

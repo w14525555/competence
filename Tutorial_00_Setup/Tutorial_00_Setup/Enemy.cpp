@@ -164,3 +164,8 @@ void Enemy::CheckIfPlayerOnLeft(const Vector2& playerPos)
 		Shoot();
 	}
 }
+
+const bool Enemy::IsBulletActive()
+{
+	return m_Bullet->IsActive();
+}

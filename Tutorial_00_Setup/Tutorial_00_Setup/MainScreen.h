@@ -16,11 +16,13 @@ private:
 	Tank* tank;
 	Sprite* blackHole;
 	Enemy* enemy;
+	int bulletProfTime = 0;
 
 	void HandleInput();
 	void HandleCollisions();
 	void HanldeBlackHoleCollisions();
 	void HandleEnemyCollisions();
+	void HandlePlayerCollisions();
 	void UpdateEnemy();
 };
 

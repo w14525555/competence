@@ -32,6 +32,7 @@ void GameApp::Update(float dt)
 	currentScreen->Update();
 	if (currentScreen->readyForNextScene)
 	{
+		gameEndScreen->isPlayerKilled = currentScreen->isPlayerKilled;
 		currentScreen = gameEndScreen;
 	}
 }

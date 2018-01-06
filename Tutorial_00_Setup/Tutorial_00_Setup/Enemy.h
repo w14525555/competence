@@ -9,6 +9,7 @@ class Enemy :
 public:
 	Enemy();
 	Enemy(const Vector2& position, ID3D11Device* pDevice);
+	const bool IsBulletActive();
 	~Enemy();
 
 	void Update(const Tank& player);
